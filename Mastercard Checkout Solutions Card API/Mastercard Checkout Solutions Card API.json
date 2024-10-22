@@ -1,0 +1,1885 @@
+{
+	"info": {
+		"_postman_id": "0b5d8a26-3b65-491d-93c8-978bbbb66e8b",
+		"name": "Mastercard Checkout Solutions Card API",
+		"description": "API definitions for Mastercard Secure Card on File Cards API Endpoint. The Cards endpoint enrolls a mastercard card into a specified Secure Card on File. The Get Card by ID will retrieve the MaskedCard details, for the specified card ID. Delete card by card ID will delete the previously enrolled card.\n\n\nContact Support:\n Name: API Support\n Email: apisupport@mastercard.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "26843617-0b5d8a26-3b65-491d-93c8-978bbbb66e8b"
+	},
+	"item": [
+		{
+			"name": "Enroll a Card.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is between 200 and 299\", function () {",
+							"    pm.expect(pm.response.code).to.be.within(200, 300);",
+							"});"
+						],
+						"type": "text/javascript",
+						"id": "d6b647fe-784b-47e2-8a37-e98a55bdf166"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"eval(pm.environment.get(\"encryptionScript\"));",
+							"// \"jwe\" for JWE encryption and \"mce\" for Mastercard encryption",
+							"encryptRequest(pm.environment.get(\"encryptionType\"), pm);"
+						],
+						"type": "text/javascript",
+						"id": "c916b973-c4e0-4671-93b7-84adcbf5ea2e"
+					}
+				}
+			],
+			"id": "fdb16a94-3fb8-44b6-9b07-937db0416432",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"srcClientId\": \"6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6\",\n  \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n  \"srcDpaId\": \"5e0d4b84-189d-4c86-822d-590602f62062_dpa1\",\n  \"cardSource\": \"CARDHOLDER\",\n  \"consumer\": {\n    \"consumerIdentity\": {\n      \"identityType\": \"EXTERNAL_ACCOUNT_ID\",\n      \"identityValue\": \"f0c04b97-4dcb-485d-a4f4-7ae437a2e955\"\n    }\n  },\n  \"encryptedCard\": \"eyJraWQiOiIyMDIzMDIwNzIyMzUyMS1zYW5kYm94LWZwYW4tZW5jcnlwdGlvbi1zcmMtbWFzdGVyY2FyZC1pbnQiLCJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMTI4R0NNIn0.n2bWptMg3aIkA7QfKdV-EUFvZTlQbvAmdhGZmK98DnOsLCVORtL1geSq6lG5F1gTCy2j0R4aoE3DkT5Zrf_eIcy_PhizLZnbv3E_ilGybfCpLuLnQVMTFc-H0rujMX7Q6h0tPxvyl2BmOKPDDO7gii-FUaQ-TCRW4nzKcwE1cLaTWxWmXgGCm61jIJvLUEMiWjEZHAkmJRXqw1oBLxNi5y11jf1coJ4IKDUFIeGj3Ib_Tv8yeEpxv8JI4Y7wI4TMqdQenJobRzdiLCU416scSTrvSjRrWG9bfbNq7raFADlTOtSHXz9fPyFQFA5tyCyCjPwf9CRaP-KflE7lR5Lp-Q.uOY4VRruXfbzjtee.rBxqpzHrcUaqS1h893J54zJiBWDguwZuJpN6aSuqDEVY69dEfmL97fBwLhGj014frGArgUiEYHp6JbgXt4fHc69-qpo4nhBVmEVY3vrCNSYjixs9VcuqPBrUexRO-X43l3-90xGM3bQ3jKAg7_gjjwnoLAS-Y4BImm35YkWlN3M.9K0_m-7X-3x0tLAVBR3MUg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cards",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards"
+					]
+				},
+				"description": "The Card Enrollment API enrolls a Mastercard card into Mastercard Checkout Solutions by tokenizing the card so that the consumer can use the token for subsequent checkouts."
+			},
+			"response": [
+				{
+					"id": "53de8b06-146d-4276-b9c8-e382b22da352",
+					"name": "OK, enrolled card details included in the response body\n",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"srcClientId\": \"6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6\",\n  \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n  \"srcDpaId\": \"5e0d4b84-189d-4c86-822d-590602f62062_dpa1\",\n  \"cardSource\": \"CARDHOLDER\",\n  \"consumer\": {\n    \"consumerIdentity\": {\n      \"identityType\": \"EXTERNAL_ACCOUNT_ID\",\n      \"identityValue\": \"f0c04b97-4dcb-485d-a4f4-7ae437a2e955\"\n    }\n  },\n  \"encryptedCard\": \"eyJraWQiOiIyMDIzMDIwNzIyMzUyMS1zYW5kYm94LWZwYW4tZW5jcnlwdGlvbi1zcmMtbWFzdGVyY2FyZC1pbnQiLCJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMTI4R0NNIn0.n2bWptMg3aIkA7QfKdV-EUFvZTlQbvAmdhGZmK98DnOsLCVORtL1geSq6lG5F1gTCy2j0R4aoE3DkT5Zrf_eIcy_PhizLZnbv3E_ilGybfCpLuLnQVMTFc-H0rujMX7Q6h0tPxvyl2BmOKPDDO7gii-FUaQ-TCRW4nzKcwE1cLaTWxWmXgGCm61jIJvLUEMiWjEZHAkmJRXqw1oBLxNi5y11jf1coJ4IKDUFIeGj3Ib_Tv8yeEpxv8JI4Y7wI4TMqdQenJobRzdiLCU416scSTrvSjRrWG9bfbNq7raFADlTOtSHXz9fPyFQFA5tyCyCjPwf9CRaP-KflE7lR5Lp-Q.uOY4VRruXfbzjtee.rBxqpzHrcUaqS1h893J54zJiBWDguwZuJpN6aSuqDEVY69dEfmL97fBwLhGj014frGArgUiEYHp6JbgXt4fHc69-qpo4nhBVmEVY3vrCNSYjixs9VcuqPBrUexRO-X43l3-90xGM3bQ3jKAg7_gjjwnoLAS-Y4BImm35YkWlN3M.9K0_m-7X-3x0tLAVBR3MUg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cards",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"disabled": false,
+							"description": "The X-Src-Cx-Flow-Id ensures to direct all calls from the same client to the same server and maintains session affinity. When you make your initial API call, Secure Card on File responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in this response can be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+							"key": "X-Src-Cx-Flow-Id",
+							"value": "_5B4CvH"
+						},
+						{
+							"disabled": false,
+							"description": "The X-Src-Response-Host is used to direct all calls from the same client to the same server to maintain session affinity. When you make your initial API call, Mastercard Checkout Solutions responds with the X-Src-Response-Host in the HTTP header. The X-Src-Response-Host that is returned will contain a site Specific URL that must be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+							"key": "X-Src-Response-Host",
+							"value": "https://ksc.services-asn.mastercard.com/"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"srcCorrelationId\": \"ff97ef9b-4b1e-40c2-b522-42197061dc5a\",\n  \"maskedCard\": {\n    \"srcDigitalCardId\": \"9ajNArkAR66zqYyHCn0rCA000000000000US\",\n    \"panBin\": 512034,\n    \"panLastFour\": 747,\n    \"tokenUniqueReference\": \"DM4MMC1US000000013a3b395556c420e85bfebe54b219e36\",\n    \"digitalCardData\": {\n      \"status\": \"ACTIVE\",\n      \"descriptorName\": \"MasterCard Test Bank\",\n      \"artUri\": \"https://sbx.assets.mastercard.com/card-art/combined-image-asset/5f21f08e-0490-4603-bcd1-ac0be7ea0ecd.png\",\n      \"pendingEvents\": [\n        \"PENDING_SCA\"\n      ],\n      \"isCoBranded\": false,\n      \"authenticationMethods\": [\n        {\n          \"authenticationMethodType\": \"3DS\",\n          \"authenticationSubject\": \"CARDHOLDER\",\n          \"uriData\": {\n            \"uri\": \"https://stage.src.mastercard.com/auth\",\n            \"uriType\": \"WEB_URI\"\n          }\n        },\n        {\n          \"authenticationMethodType\": \"MANAGED_AUTHENTICATION\",\n          \"authenticationSubject\": \"CARDHOLDER\",\n          \"uriData\": {\n            \"uri\": \"https://stage.src.mastercard.com/auth\",\n            \"uriType\": \"WEB_URI\"\n          }\n        }\n      ]\n    },\n    \"panExpirationMonth\": 12,\n    \"panExpirationYear\": 2024,\n    \"paymentCardType\": \"CREDIT\",\n    \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n    \"paymentAccountReference\": \"50015018T6JE5ZORJON0QTP9HHMYN\",\n    \"dateOfCardCreated\": \"2024-10-03T14:29:30.685Z\"\n  },\n  \"maskedConsumer\": {\n    \"srcConsumerId\": \"a7c53e04-dae7-4da0-9b4a-b3d8e8399ebb\",\n    \"maskedConsumerIdentity\": {\n      \"identityType\": \"EXTERNAL_ACCOUNT_ID\",\n      \"maskedIdentityValue\": \"f0c04b97-4dcb-485d-a4f4-7ae437a2e955\"\n    },\n    \"status\": \"ACTIVE\",\n    \"dateConsumerAdded\": \"2024-10-03T14:29:27.441Z\"\n  }\n}"
+				},
+				{
+					"id": "78614c8e-b3d3-44b3-8a83-918fe2b058d0",
+					"name": "Bad Request. Reason code of `INVALID_ARGUMENT` Identifies a malformed or invalid request. Use cases:\n  * Request Body JSON does not confirm to the schema of EnrollCardRequest\n  * Mandatory parameters in request are missing example `srcClientId` or `card.p",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"srcClientId\": \"6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6\",\n  \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n  \"srcDpaId\": \"5e0d4b84-189d-4c86-822d-590602f62062_dpa1\",\n  \"cardSource\": \"CARDHOLDER\",\n  \"consumer\": {\n    \"consumerIdentity\": {\n      \"identityType\": \"EXTERNAL_ACCOUNT_ID\",\n      \"identityValue\": \"f0c04b97-4dcb-485d-a4f4-7ae437a2e955\"\n    }\n  },\n  \"encryptedCard\": \"eyJraWQiOiIyMDIzMDIwNzIyMzUyMS1zYW5kYm94LWZwYW4tZW5jcnlwdGlvbi1zcmMtbWFzdGVyY2FyZC1pbnQiLCJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMTI4R0NNIn0.n2bWptMg3aIkA7QfKdV-EUFvZTlQbvAmdhGZmK98DnOsLCVORtL1geSq6lG5F1gTCy2j0R4aoE3DkT5Zrf_eIcy_PhizLZnbv3E_ilGybfCpLuLnQVMTFc-H0rujMX7Q6h0tPxvyl2BmOKPDDO7gii-FUaQ-TCRW4nzKcwE1cLaTWxWmXgGCm61jIJvLUEMiWjEZHAkmJRXqw1oBLxNi5y11jf1coJ4IKDUFIeGj3Ib_Tv8yeEpxv8JI4Y7wI4TMqdQenJobRzdiLCU416scSTrvSjRrWG9bfbNq7raFADlTOtSHXz9fPyFQFA5tyCyCjPwf9CRaP-KflE7lR5Lp-Q.uOY4VRruXfbzjtee.rBxqpzHrcUaqS1h893J54zJiBWDguwZuJpN6aSuqDEVY69dEfmL97fBwLhGj014frGArgUiEYHp6JbgXt4fHc69-qpo4nhBVmEVY3vrCNSYjixs9VcuqPBrUexRO-X43l3-90xGM3bQ3jKAg7_gjjwnoLAS-Y4BImm35YkWlN3M.9K0_m-7X-3x0tLAVBR3MUg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cards",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": [\n    {\n      \"message\": \"Invalid Field Length\",\n      \"reason\": null,\n      \"source\": \"card.cardholderFullName\",\n      \"sourceType\": \"BODY\"\n    }\n  ],\n  \"message\": \"Cannot process the request because it is malformed or has incorrect/ missing fields or values.\",\n  \"reason\": \"INVALID_ARGUMENT\",\n  \"status\": 400\n}"
+				},
+				{
+					"id": "28cf520a-3699-4157-bf94-74cac93ff1aa",
+					"name": "Forbidden. API will return this response if identifier validation fails.\n",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"srcClientId\": \"6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6\",\n  \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n  \"srcDpaId\": \"5e0d4b84-189d-4c86-822d-590602f62062_dpa1\",\n  \"cardSource\": \"CARDHOLDER\",\n  \"consumer\": {\n    \"consumerIdentity\": {\n      \"identityType\": \"EXTERNAL_ACCOUNT_ID\",\n      \"identityValue\": \"f0c04b97-4dcb-485d-a4f4-7ae437a2e955\"\n    }\n  },\n  \"encryptedCard\": \"eyJraWQiOiIyMDIzMDIwNzIyMzUyMS1zYW5kYm94LWZwYW4tZW5jcnlwdGlvbi1zcmMtbWFzdGVyY2FyZC1pbnQiLCJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMTI4R0NNIn0.n2bWptMg3aIkA7QfKdV-EUFvZTlQbvAmdhGZmK98DnOsLCVORtL1geSq6lG5F1gTCy2j0R4aoE3DkT5Zrf_eIcy_PhizLZnbv3E_ilGybfCpLuLnQVMTFc-H0rujMX7Q6h0tPxvyl2BmOKPDDO7gii-FUaQ-TCRW4nzKcwE1cLaTWxWmXgGCm61jIJvLUEMiWjEZHAkmJRXqw1oBLxNi5y11jf1coJ4IKDUFIeGj3Ib_Tv8yeEpxv8JI4Y7wI4TMqdQenJobRzdiLCU416scSTrvSjRrWG9bfbNq7raFADlTOtSHXz9fPyFQFA5tyCyCjPwf9CRaP-KflE7lR5Lp-Q.uOY4VRruXfbzjtee.rBxqpzHrcUaqS1h893J54zJiBWDguwZuJpN6aSuqDEVY69dEfmL97fBwLhGj014frGArgUiEYHp6JbgXt4fHc69-qpo4nhBVmEVY3vrCNSYjixs9VcuqPBrUexRO-X43l3-90xGM3bQ3jKAg7_gjjwnoLAS-Y4BImm35YkWlN3M.9K0_m-7X-3x0tLAVBR3MUg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cards",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"Access is denied to the requested resource. Client does not have sufficient permission or has been locked.\",\n  \"reason\": \"PERMISSION_DENIED\",\n  \"status\": 403\n}"
+				},
+				{
+					"id": "55640e9e-fb3f-4e0b-a605-d474b7185042",
+					"name": "Internal server error\n",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"srcClientId\": \"6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6\",\n  \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n  \"srcDpaId\": \"5e0d4b84-189d-4c86-822d-590602f62062_dpa1\",\n  \"cardSource\": \"CARDHOLDER\",\n  \"consumer\": {\n    \"consumerIdentity\": {\n      \"identityType\": \"EXTERNAL_ACCOUNT_ID\",\n      \"identityValue\": \"f0c04b97-4dcb-485d-a4f4-7ae437a2e955\"\n    }\n  },\n  \"encryptedCard\": \"eyJraWQiOiIyMDIzMDIwNzIyMzUyMS1zYW5kYm94LWZwYW4tZW5jcnlwdGlvbi1zcmMtbWFzdGVyY2FyZC1pbnQiLCJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMTI4R0NNIn0.n2bWptMg3aIkA7QfKdV-EUFvZTlQbvAmdhGZmK98DnOsLCVORtL1geSq6lG5F1gTCy2j0R4aoE3DkT5Zrf_eIcy_PhizLZnbv3E_ilGybfCpLuLnQVMTFc-H0rujMX7Q6h0tPxvyl2BmOKPDDO7gii-FUaQ-TCRW4nzKcwE1cLaTWxWmXgGCm61jIJvLUEMiWjEZHAkmJRXqw1oBLxNi5y11jf1coJ4IKDUFIeGj3Ib_Tv8yeEpxv8JI4Y7wI4TMqdQenJobRzdiLCU416scSTrvSjRrWG9bfbNq7raFADlTOtSHXz9fPyFQFA5tyCyCjPwf9CRaP-KflE7lR5Lp-Q.uOY4VRruXfbzjtee.rBxqpzHrcUaqS1h893J54zJiBWDguwZuJpN6aSuqDEVY69dEfmL97fBwLhGj014frGArgUiEYHp6JbgXt4fHc69-qpo4nhBVmEVY3vrCNSYjixs9VcuqPBrUexRO-X43l3-90xGM3bQ3jKAg7_gjjwnoLAS-Y4BImm35YkWlN3M.9K0_m-7X-3x0tLAVBR3MUg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cards",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "\"{\\n  \\\"code\\\": 500,\\n  \\\"status\\\": \\\"INTERNAL\\\",\\n  \\\"message\\\": \\\"Internal server error. Something went wrong while processing the request.\\\"\\n}\\n\""
+				},
+				{
+					"id": "6e04a623-a21e-4c1b-b923-82f4c67e8dcc",
+					"name": "Service Unavailable. Either the service or a downstream service is unavailable",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"srcClientId\": \"6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6\",\n  \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n  \"srcDpaId\": \"5e0d4b84-189d-4c86-822d-590602f62062_dpa1\",\n  \"cardSource\": \"CARDHOLDER\",\n  \"consumer\": {\n    \"consumerIdentity\": {\n      \"identityType\": \"EXTERNAL_ACCOUNT_ID\",\n      \"identityValue\": \"f0c04b97-4dcb-485d-a4f4-7ae437a2e955\"\n    }\n  },\n  \"encryptedCard\": \"eyJraWQiOiIyMDIzMDIwNzIyMzUyMS1zYW5kYm94LWZwYW4tZW5jcnlwdGlvbi1zcmMtbWFzdGVyY2FyZC1pbnQiLCJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMTI4R0NNIn0.n2bWptMg3aIkA7QfKdV-EUFvZTlQbvAmdhGZmK98DnOsLCVORtL1geSq6lG5F1gTCy2j0R4aoE3DkT5Zrf_eIcy_PhizLZnbv3E_ilGybfCpLuLnQVMTFc-H0rujMX7Q6h0tPxvyl2BmOKPDDO7gii-FUaQ-TCRW4nzKcwE1cLaTWxWmXgGCm61jIJvLUEMiWjEZHAkmJRXqw1oBLxNi5y11jf1coJ4IKDUFIeGj3Ib_Tv8yeEpxv8JI4Y7wI4TMqdQenJobRzdiLCU416scSTrvSjRrWG9bfbNq7raFADlTOtSHXz9fPyFQFA5tyCyCjPwf9CRaP-KflE7lR5Lp-Q.uOY4VRruXfbzjtee.rBxqpzHrcUaqS1h893J54zJiBWDguwZuJpN6aSuqDEVY69dEfmL97fBwLhGj014frGArgUiEYHp6JbgXt4fHc69-qpo4nhBVmEVY3vrCNSYjixs9VcuqPBrUexRO-X43l3-90xGM3bQ3jKAg7_gjjwnoLAS-Y4BImm35YkWlN3M.9K0_m-7X-3x0tLAVBR3MUg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cards",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards"
+							]
+						}
+					},
+					"status": "Service Unavailable",
+					"code": 503,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": [\n    {\n      \"message\": \"Issuer did not respond in time. Retry the request.\",\n      \"reason\": \"NO_RESPONSE_FROM_ISSUER\"\n    }\n  ],\n  \"message\": \"Service unavailable. Typically the server not able to serve the request temporarily. Retry after some time\",\n  \"reason\": \"UNAVAILABLE\",\n  \"status\": 503\n}"
+				}
+			]
+		},
+		{
+			"name": "Get card by card ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is between 200 and 299\", function () {",
+							"    pm.expect(pm.response.code).to.be.within(200, 300);",
+							"});"
+						],
+						"type": "text/javascript",
+						"id": "1ae7bb5b-7d7b-4552-aefe-9bbdddd62080"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"eval(pm.environment.get(\"encryptionScript\"));",
+							"// \"jwe\" for JWE encryption and \"mce\" for Mastercard encryption",
+							"encryptRequest(pm.environment.get(\"encryptionType\"), pm);"
+						],
+						"type": "text/javascript",
+						"id": "0eda6dc9-8cb3-4450-8af9-fc21b77913ad"
+					}
+				}
+			],
+			"id": "e1473ffc-1e59-4217-80a1-45f109b304b8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"description": "For OAuth connectivity with Mastercard Checkout Solutions (MCS), X-Src-Cx-Flow-Id ensures that any back-to-back API calls will be sent to the same Mastercard server to maintain session affinity. When you make your initial API call, MCS responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in the response can be used in the subsequent calls to ensure that they are directed to the same server that returned the initial response.",
+						"key": "X-Src-Cx-Flow-Id",
+						"value": "_5B4CvH"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/cards/:cardId?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&srcDpaId=5e0d4b84-189d-4c86-822d-590602f62062_dpa1&srcCorrelationId=ff97ef9b-4b1e-40c2-b522-42197061dc5a&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&tokenRequested=false&keyFingerprintId=a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards",
+						":cardId"
+					],
+					"query": [
+						{
+							"key": "srcClientId",
+							"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6",
+							"description": "(Required) A unique identifier assigned by Mastercard during onboarding which signifies the responsible party Integrating to Mastercard Checkout Solutions (MCS)."
+						},
+						{
+							"key": "srcDpaId",
+							"value": "5e0d4b84-189d-4c86-822d-590602f62062_dpa1",
+							"description": "The registered identifier for the Digital Payment Application (DPA) accessing the service.\n__Conditional__: Required if you are a Merchant directly integrating with Mastercard Checkout Solutions (MCS) APIs, a Payment Service Provider (PSP) integrating On-Behalf-Of (OBO) a Merchant, a Payment Facilitator, or if you are enrolling in the Secure Card on File (SCOF) QR program.\n"
+						},
+						{
+							"key": "srcCorrelationId",
+							"value": "ff97ef9b-4b1e-40c2-b522-42197061dc5a",
+							"description": "A unique identifier that correlates a series of two or more requests to a single session of activity. Mastercard Checkout Solutions (MCS) will return a new srcCorrelationId in each response by default, but Integrators may choose to populate previously used srcCorrelationIds in subsequent requests to correlate their activity under a single ID. This can be done by providing a Mastercard generated srcCorrelationId in the request, or by generating your own ID in the same format. SrcCorrelationId is used for tracking and troubleshooting purposes within Mastercard's ecosystem."
+						},
+						{
+							"key": "serviceId",
+							"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01",
+							"description": "(Required) A unique identifier assigned by Mastercard for which tokens are created uniquely for the entity onboarded."
+						},
+						{
+							"key": "srciTransactionId",
+							"value": "ea in adipisicing consectetur",
+							"description": "Transaction reference generated by the checkout initiator."
+						},
+						{
+							"key": "tokenRequested",
+							"value": "false",
+							"description": "This value is defaulted to \"false\". The ability to receive an encrypted payment token object in the get card response is manually controlled by Mastercard. Integrators must work with their account managers to be able to receive a token in the get card response. Once permitted and enabled, set this value to \"true\".\n"
+						},
+						{
+							"key": "keyFingerprintId",
+							"value": "a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4",
+							"description": "Mastercard will use the encryption key associated with the supplied KID to encrypt the payload. If not supplied, the key which is marked as default will be used."
+						}
+					],
+					"variable": [
+						{
+							"key": "cardId",
+							"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+							"description": "(Required) The srcDigitalCardId of the card enrolled in Mastercard Checkout Solutions (MCS)."
+						}
+					]
+				},
+				"description": "The GetCardRequest is used to retrieve the latest card information. It must contain the following values: <ul> <li>serviceId </li> <li>srcClientId </li> <li>srcDigitalCardId </li> </ul>\nThe following values are conditional: <ul> <li>srcDpaId </li> </ul>\n<br>The parameters passed in the HTTP request header must be in an encoded format to be valid for HTTP transmission."
+			},
+			"response": [
+				{
+					"id": "e9976b05-3214-4b42-96a3-d592093ae4ed",
+					"name": "OK\n",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "For OAuth connectivity with Mastercard Checkout Solutions (MCS), X-Src-Cx-Flow-Id ensures that any back-to-back API calls will be sent to the same Mastercard server to maintain session affinity. When you make your initial API call, MCS responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in the response can be used in the subsequent calls to ensure that they are directed to the same server that returned the initial response.",
+								"key": "X-Src-Cx-Flow-Id",
+								"value": "_5B4CvH"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&srcDpaId=5e0d4b84-189d-4c86-822d-590602f62062_dpa1&srcCorrelationId=ff97ef9b-4b1e-40c2-b522-42197061dc5a&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&tokenRequested=false&keyFingerprintId=a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "srcDpaId",
+									"value": "5e0d4b84-189d-4c86-822d-590602f62062_dpa1"
+								},
+								{
+									"key": "srcCorrelationId",
+									"value": "ff97ef9b-4b1e-40c2-b522-42197061dc5a"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "tokenRequested",
+									"value": "false"
+								},
+								{
+									"key": "keyFingerprintId",
+									"value": "a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+									"description": "(Required) The srcDigitalCardId of the card enrolled in Mastercard Checkout Solutions (MCS)."
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"disabled": false,
+							"description": "For OAuth connectivity with Mastercard Checkout Solutions (MCS), X-Src-Cx-Flow-Id ensures that any back-to-back API calls will be sent to the same Mastercard server to maintain session affinity. When you make your initial API call, MCS responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in the response can be used in the subsequent calls to ensure that they are directed to the same server that returned the initial response.",
+							"key": "X-Src-Cx-Flow-Id",
+							"value": "1"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"maskedCard\": {\n    \"panLastFour\": \"quis sed\",\n    \"dateOfCardCreated\": \"2021-11-25T14:51:03.811Z\",\n    \"panBin\": \"in non dolore Duis l\",\n    \"srcDigitalCardId\": \"68bf50ec-0e8b-414f-8cfc-63e9c3fb9d48\",\n    \"digitalCardData\": {\n      \"artUri\": \"https://assets.mastercard.com/card-art/combined-image-asset/MyBank-mastercard.png\",\n      \"descriptorName\": \"Bank Rewards Mastercard\",\n      \"status\": \"EXPIRED\",\n      \"pendingEvents\": [\n        \"PENDING_SCA\",\n        \"PENDING_SCA\"\n      ],\n      \"isCoBranded\": \"qu\",\n      \"coBrandedName\": \"Very Nice Hotels\",\n      \"authenticationMethods\": [\n        {\n          \"authenticationMethodType\": \"3DS\",\n          \"authenticationSubject\": \"CARDHOLDER\",\n          \"uriData\": {\n            \"uri\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"authenticationMethodType\": \"3DS\",\n          \"authenticationSubject\": \"CARDHOLDER\",\n          \"uriData\": {\n            \"uri\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"issuerName\": \"My Bank\",\n      \"longDescription\": \"Bank Double Cash Back Rewards Mastercard\",\n      \"foregroundColor\": \"FF5733\"\n    },\n    \"tokenUniqueReference\": \"DM4MMC0000000001cd2826c715b7475bb089b7622366ebe4\",\n    \"tokenLastFour\": \"veniam elit amet\",\n    \"tokenExpirationMonth\": \"la\",\n    \"tokenExpirationYear\": \"idmi\",\n    \"panExpirationMonth\": \"qu\",\n    \"panExpirationYear\": \"mini\",\n    \"paymentCardDescriptor\": \"mastercard\",\n    \"paymentCardType\": \"CREDIT\",\n    \"serviceId\": \"SECURE_COF_MERCHANT#START_COF-UPN2#01\",\n    \"paymentAccountReference\": \"5001EUMYTT3AESCZGUEC77KPCLETI\",\n    \"delegatedAuthenticationModels\": [\n      {\n        \"modelType\": \"AE_TYPE_3\",\n        \"isSupported\": true\n      },\n      {\n        \"modelType\": \"AE_TYPE_3\",\n        \"isSupported\": true\n      }\n    ],\n    \"mfaEligibility\": [\n      {\n        \"isMultiFactorAuthenticationSupported\": true,\n        \"isLiabilityShiftEligible\": true,\n        \"authenticatingEntityId\": \"A3001\",\n        \"certifiedMfaMethodId\": \"43SA5\"\n      },\n      {\n        \"isMultiFactorAuthenticationSupported\": true,\n        \"isLiabilityShiftEligible\": true,\n        \"authenticatingEntityId\": \"A3001\",\n        \"certifiedMfaMethodId\": \"43SA5\"\n      }\n    ]\n  },\n  \"srcCorrelationId\": \"ff97ef9b-4b1e-40c2-b522-42197061dc5a\",\n  \"encryptedPaymentData\": \"eyJ0eXBlIjoiSldUIiwiYWxnIjoiUlMyNTYiLCJraWQiOiI4NTIxNDY4OCJ9.eyJzdWIiOiI1OTY3OGJmNS00ODcxLTQ5M2MtOWUwYi0\",\n  \"keyFingerprintId\": \"nwzNuN9upxolVsr6q0I/phcnfA/ZlaJ2gmAJiogMCwM\"\n}"
+				},
+				{
+					"id": "b92889d1-4e56-4cb8-a245-898b83c8d89f",
+					"name": "Bad Request. Invalid tokenRequested field.\n",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "For OAuth connectivity with Mastercard Checkout Solutions (MCS), X-Src-Cx-Flow-Id ensures that any back-to-back API calls will be sent to the same Mastercard server to maintain session affinity. When you make your initial API call, MCS responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in the response can be used in the subsequent calls to ensure that they are directed to the same server that returned the initial response.",
+								"key": "X-Src-Cx-Flow-Id",
+								"value": "_5B4CvH"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&srcDpaId=5e0d4b84-189d-4c86-822d-590602f62062_dpa1&srcCorrelationId=ff97ef9b-4b1e-40c2-b522-42197061dc5a&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&tokenRequested=false&keyFingerprintId=a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "srcDpaId",
+									"value": "5e0d4b84-189d-4c86-822d-590602f62062_dpa1"
+								},
+								{
+									"key": "srcCorrelationId",
+									"value": "ff97ef9b-4b1e-40c2-b522-42197061dc5a"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "tokenRequested",
+									"value": "false"
+								},
+								{
+									"key": "keyFingerprintId",
+									"value": "a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+									"description": "(Required) The srcDigitalCardId of the card enrolled in Mastercard Checkout Solutions (MCS)."
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": [\n    {\n      \"message\": \"Failed to convert value of type 'java.lang.String' to required type 'java.lang.Boolean'; nested exception is java.lang.IllegalArgumentException: Invalid boolean value [falsetrue]\",\n      \"reason\": \"INVALID_VALUE\",\n      \"source\": \"tokenRequested\",\n      \"sourceType\": \"QUERY\"\n    }\n  ],\n  \"message\": \"Http request argument type is mismatched at this service\",\n  \"reason\": \"INVALID_ARGUMENT\",\n  \"status\": 400\n}"
+				},
+				{
+					"id": "793876c9-68a8-474e-b677-d7acc8429b79",
+					"name": "Forbidden.\n",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "For OAuth connectivity with Mastercard Checkout Solutions (MCS), X-Src-Cx-Flow-Id ensures that any back-to-back API calls will be sent to the same Mastercard server to maintain session affinity. When you make your initial API call, MCS responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in the response can be used in the subsequent calls to ensure that they are directed to the same server that returned the initial response.",
+								"key": "X-Src-Cx-Flow-Id",
+								"value": "_5B4CvH"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&srcDpaId=5e0d4b84-189d-4c86-822d-590602f62062_dpa1&srcCorrelationId=ff97ef9b-4b1e-40c2-b522-42197061dc5a&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&tokenRequested=false&keyFingerprintId=a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "srcDpaId",
+									"value": "5e0d4b84-189d-4c86-822d-590602f62062_dpa1"
+								},
+								{
+									"key": "srcCorrelationId",
+									"value": "ff97ef9b-4b1e-40c2-b522-42197061dc5a"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "tokenRequested",
+									"value": "false"
+								},
+								{
+									"key": "keyFingerprintId",
+									"value": "a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+									"description": "(Required) The srcDigitalCardId of the card enrolled in Mastercard Checkout Solutions (MCS)."
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": null,\n  \"message\": \"Access is denied to the requested resource. Client does not have sufficient permission or has been locked.\",\n  \"reason\": \"PERMISSION_DENIED\",\n  \"status\": 403\n}"
+				},
+				{
+					"id": "3095af7f-dfdc-49bc-95be-9cb798a22245",
+					"name": "Card not found by cards service.\n",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "For OAuth connectivity with Mastercard Checkout Solutions (MCS), X-Src-Cx-Flow-Id ensures that any back-to-back API calls will be sent to the same Mastercard server to maintain session affinity. When you make your initial API call, MCS responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in the response can be used in the subsequent calls to ensure that they are directed to the same server that returned the initial response.",
+								"key": "X-Src-Cx-Flow-Id",
+								"value": "_5B4CvH"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&srcDpaId=5e0d4b84-189d-4c86-822d-590602f62062_dpa1&srcCorrelationId=ff97ef9b-4b1e-40c2-b522-42197061dc5a&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&tokenRequested=false&keyFingerprintId=a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "srcDpaId",
+									"value": "5e0d4b84-189d-4c86-822d-590602f62062_dpa1"
+								},
+								{
+									"key": "srcCorrelationId",
+									"value": "ff97ef9b-4b1e-40c2-b522-42197061dc5a"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "tokenRequested",
+									"value": "false"
+								},
+								{
+									"key": "keyFingerprintId",
+									"value": "a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+									"description": "(Required) The srcDigitalCardId of the card enrolled in Mastercard Checkout Solutions (MCS)."
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": [\n    {\n      \"message\": \"Card ID not found\",\n      \"reason\": \"NOT_FOUND\",\n      \"source\": \"srcDigitalCardId\",\n      \"sourceType\": \"PATH\"\n    }\n  ],\n  \"message\": \"Not Found\",\n  \"reason\": \"NOT_FOUND\",\n  \"status\": 404\n}"
+				},
+				{
+					"id": "ab247e9c-dc62-462b-b454-59bded49abec",
+					"name": "Internal server error.",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "For OAuth connectivity with Mastercard Checkout Solutions (MCS), X-Src-Cx-Flow-Id ensures that any back-to-back API calls will be sent to the same Mastercard server to maintain session affinity. When you make your initial API call, MCS responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in the response can be used in the subsequent calls to ensure that they are directed to the same server that returned the initial response.",
+								"key": "X-Src-Cx-Flow-Id",
+								"value": "_5B4CvH"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&srcDpaId=5e0d4b84-189d-4c86-822d-590602f62062_dpa1&srcCorrelationId=ff97ef9b-4b1e-40c2-b522-42197061dc5a&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&tokenRequested=false&keyFingerprintId=a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "srcDpaId",
+									"value": "5e0d4b84-189d-4c86-822d-590602f62062_dpa1"
+								},
+								{
+									"key": "srcCorrelationId",
+									"value": "ff97ef9b-4b1e-40c2-b522-42197061dc5a"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "tokenRequested",
+									"value": "false"
+								},
+								{
+									"key": "keyFingerprintId",
+									"value": "a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+									"description": "(Required) The srcDigitalCardId of the card enrolled in Mastercard Checkout Solutions (MCS)."
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": null,\n  \"message\": \"Service unavailable. Typically the server not able to serve the request temporarily. Retry after some time\",\n  \"reason\": \"INTERNAL\",\n  \"status\": 500\n}"
+				},
+				{
+					"id": "fc1e5c2c-05a9-4092-916c-c52982f71e38",
+					"name": "Service unavailable. Typically the server not able to serve the request temporarily.\n",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "For OAuth connectivity with Mastercard Checkout Solutions (MCS), X-Src-Cx-Flow-Id ensures that any back-to-back API calls will be sent to the same Mastercard server to maintain session affinity. When you make your initial API call, MCS responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in the response can be used in the subsequent calls to ensure that they are directed to the same server that returned the initial response.",
+								"key": "X-Src-Cx-Flow-Id",
+								"value": "_5B4CvH"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&srcDpaId=5e0d4b84-189d-4c86-822d-590602f62062_dpa1&srcCorrelationId=ff97ef9b-4b1e-40c2-b522-42197061dc5a&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&tokenRequested=false&keyFingerprintId=a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "srcDpaId",
+									"value": "5e0d4b84-189d-4c86-822d-590602f62062_dpa1"
+								},
+								{
+									"key": "srcCorrelationId",
+									"value": "ff97ef9b-4b1e-40c2-b522-42197061dc5a"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "tokenRequested",
+									"value": "false"
+								},
+								{
+									"key": "keyFingerprintId",
+									"value": "a28f0222ee06631fefdea53b61ece178a593725142df927889ddcd95680baab4"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+									"description": "(Required) The srcDigitalCardId of the card enrolled in Mastercard Checkout Solutions (MCS)."
+								}
+							]
+						}
+					},
+					"status": "Service Unavailable",
+					"code": 503,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": null,\n  \"message\": \"Service unavailable. Typically the server not able to serve the request temporarily. Retry after some time\",\n  \"reason\": \"UNAVAILABLE\",\n  \"status\": 503\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete card by card ID.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is between 200 and 299\", function () {",
+							"    pm.expect(pm.response.code).to.be.within(200, 300);",
+							"});"
+						],
+						"type": "text/javascript",
+						"id": "0a27f9d9-ebfc-4af9-b97a-822e7ea14aaf"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"eval(pm.environment.get(\"encryptionScript\"));",
+							"// \"jwe\" for JWE encryption and \"mce\" for Mastercard encryption",
+							"encryptRequest(pm.environment.get(\"encryptionType\"), pm);"
+						],
+						"type": "text/javascript",
+						"id": "a6146907-3aaf-4060-b74b-aabe8d28afdc"
+					}
+				}
+			],
+			"id": "a82d02ac-1693-41fc-b979-e7e7e167621b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/cards/:cardId?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&srcDpaId=5e0d4b84-189d-4c86-822d-590602f62062_dpa1&srcCorrelationId=ff97ef9b-4b1e-40c2-b522-42197061dc5a&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&reason=ACCOUNT_CLOSED&requestor=CARDHOLDER",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards",
+						":cardId"
+					],
+					"query": [
+						{
+							"key": "srcClientId",
+							"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6",
+							"description": "(Required) A unique identifier assigned by Mastercard during onboarding which signifies the responsible party Integrating to Mastercard Checkout Solutions (MCS)."
+						},
+						{
+							"key": "srcDpaId",
+							"value": "5e0d4b84-189d-4c86-822d-590602f62062_dpa1",
+							"description": "The registered identifier for the Digital Payment Application (DPA) accessing the service.\n__Conditional__: Required if you are a Merchant directly integrating with Mastercard Checkout Solutions (MCS) APIs, a Payment Service Provider (PSP) integrating On-Behalf-Of (OBO) a Merchant, a Payment Facilitator, or if you are enrolling in the Secure Card on File (SCOF) QR program.\n"
+						},
+						{
+							"key": "srcCorrelationId",
+							"value": "ff97ef9b-4b1e-40c2-b522-42197061dc5a",
+							"description": "A unique identifier that correlates a series of two or more requests to a single session of activity. Mastercard Checkout Solutions (MCS) will return a new srcCorrelationId in each response by default, but Integrators may choose to populate previously used srcCorrelationIds in subsequent requests to correlate their activity under a single ID. This can be done by providing a Mastercard generated srcCorrelationId in the request, or by generating your own ID in the same format. SrcCorrelationId is used for tracking and troubleshooting purposes within Mastercard's ecosystem."
+						},
+						{
+							"key": "serviceId",
+							"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01",
+							"description": "(Required) A unique identifier assigned by Mastercard for which tokens are created uniquely for the entity onboarded."
+						},
+						{
+							"key": "srciTransactionId",
+							"value": "ea in adipisicing consectetur",
+							"description": "Transaction reference generated by the checkout initiator."
+						},
+						{
+							"key": "reason",
+							"value": "ACCOUNT_CLOSED",
+							"description": "Reason for the card deletion."
+						},
+						{
+							"key": "requestor",
+							"value": "CARDHOLDER",
+							"description": "Entity initiating the card deletion."
+						}
+					],
+					"variable": [
+						{
+							"key": "cardId",
+							"value": "n8TdCz6BQvSIj2C0yYPvZw000000000000US",
+							"description": "(Required) The srcDigitalCardId of the card enrolled in Mastercard Checkout Solutions (MCS)."
+						}
+					]
+				},
+				"description": "The Delete Card by ID operation will delete the card with the specified card identifier, previously enrolled with Mastercard. <br>The parameters passed in the HTTP request header must be in an encoded format to be valid for HTTP transmission."
+			},
+			"response": [
+				{
+					"id": "167bb4af-0086-4a84-9bfd-41541989d75b",
+					"name": "OK, Returned when the card and its dependencies has been successfully deleted.\n",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&srcDpaId=5e0d4b84-189d-4c86-822d-590602f62062_dpa1&srcCorrelationId=ff97ef9b-4b1e-40c2-b522-42197061dc5a&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&reason=ACCOUNT_CLOSED&requestor=CARDHOLDER",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "srcDpaId",
+									"value": "5e0d4b84-189d-4c86-822d-590602f62062_dpa1"
+								},
+								{
+									"key": "srcCorrelationId",
+									"value": "ff97ef9b-4b1e-40c2-b522-42197061dc5a"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "reason",
+									"value": "ACCOUNT_CLOSED"
+								},
+								{
+									"key": "requestor",
+									"value": "CARDHOLDER"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "n8TdCz6BQvSIj2C0yYPvZw000000000000US",
+									"description": "(Required) The srcDigitalCardId of the card enrolled in Mastercard Checkout Solutions (MCS)."
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"disabled": false,
+							"description": "X-Src-Cx-Flow-Id ensures to direct all calls from the same client to the same server and maintains session affinity. When you make your initial API call, Secure Card on File responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in this response can be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+							"key": "X-Src-Cx-Flow-Id",
+							"value": "_5B4CvH"
+						},
+						{
+							"disabled": false,
+							"description": "The X-Src-Response-Host is used to direct all calls from the same client to the same server to maintain session affinity. When you make your initial API call, Mastercard Checkout Solutions responds with the X-Src-Response-Host in the HTTP header. The X-Src-Response-Host that is returned will contain a site Specific URL that must be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+							"key": "X-Src-Response-Host",
+							"value": "https://ksc.services-asn.mastercard.com/"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"srcCorrelationId\": \"ff97ef9b-4b1e-40c2-b522-42197061dc5a\"\n}"
+				},
+				{
+					"id": "73f32cdb-58b8-4feb-a182-cdbf5e6e704f",
+					"name": "Bad Request. Reason code of `INVALID_ARGUMENT` Identifies a malformed or invalid request.\nUse cases:\n  * Mandatory Query parameters are missing example 'srcClientId' is not provided.\n  * Query parameters provided value has invalid format example, 'srcCorr",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&srcDpaId=5e0d4b84-189d-4c86-822d-590602f62062_dpa1&srcCorrelationId=ff97ef9b-4b1e-40c2-b522-42197061dc5a&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&reason=ACCOUNT_CLOSED&requestor=CARDHOLDER",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "srcDpaId",
+									"value": "5e0d4b84-189d-4c86-822d-590602f62062_dpa1"
+								},
+								{
+									"key": "srcCorrelationId",
+									"value": "ff97ef9b-4b1e-40c2-b522-42197061dc5a"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "reason",
+									"value": "ACCOUNT_CLOSED"
+								},
+								{
+									"key": "requestor",
+									"value": "CARDHOLDER"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "n8TdCz6BQvSIj2C0yYPvZw000000000000US",
+									"description": "(Required) The srcDigitalCardId of the card enrolled in Mastercard Checkout Solutions (MCS)."
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": [\n    {\n      \"message\": \"Required request parameter 'srcClientId' for method parameter type String is not present\",\n      \"reason\": \"CANNOT_BE_NULL\",\n      \"source\": \"srcClientId\",\n      \"sourceType\": \"QUERY\"\n    }\n  ],\n  \"message\": \"Http request query parameter is missing\",\n  \"reason\": \"INVALID_ARGUMENT\",\n  \"status\": 400\n}"
+				},
+				{
+					"id": "1888a33b-0091-4654-b991-7ae101e5e566",
+					"name": "Forbidden. API will return this response if identifier validation fails.\n",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&srcDpaId=5e0d4b84-189d-4c86-822d-590602f62062_dpa1&srcCorrelationId=ff97ef9b-4b1e-40c2-b522-42197061dc5a&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&reason=ACCOUNT_CLOSED&requestor=CARDHOLDER",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "srcDpaId",
+									"value": "5e0d4b84-189d-4c86-822d-590602f62062_dpa1"
+								},
+								{
+									"key": "srcCorrelationId",
+									"value": "ff97ef9b-4b1e-40c2-b522-42197061dc5a"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "reason",
+									"value": "ACCOUNT_CLOSED"
+								},
+								{
+									"key": "requestor",
+									"value": "CARDHOLDER"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "n8TdCz6BQvSIj2C0yYPvZw000000000000US",
+									"description": "(Required) The srcDigitalCardId of the card enrolled in Mastercard Checkout Solutions (MCS)."
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": null,\n  \"message\": \"Access is denied to the requested resource. Client does not have sufficient permission or has been locked.\",\n  \"reason\": \"PERMISSION_DENIED\",\n  \"status\": 403\n}"
+				},
+				{
+					"id": "0db40827-d119-4468-9cfe-18faaddb9d2e",
+					"name": "Not Found. Identifies a missing Path Parameter. Possible reasons:\n\n  * `cardId` is not provided.\n  * `cardId` does not exist in the system.\n",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&srcDpaId=5e0d4b84-189d-4c86-822d-590602f62062_dpa1&srcCorrelationId=ff97ef9b-4b1e-40c2-b522-42197061dc5a&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&reason=ACCOUNT_CLOSED&requestor=CARDHOLDER",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "srcDpaId",
+									"value": "5e0d4b84-189d-4c86-822d-590602f62062_dpa1"
+								},
+								{
+									"key": "srcCorrelationId",
+									"value": "ff97ef9b-4b1e-40c2-b522-42197061dc5a"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "reason",
+									"value": "ACCOUNT_CLOSED"
+								},
+								{
+									"key": "requestor",
+									"value": "CARDHOLDER"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "n8TdCz6BQvSIj2C0yYPvZw000000000000US",
+									"description": "(Required) The srcDigitalCardId of the card enrolled in Mastercard Checkout Solutions (MCS)."
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": null,\n  \"message\": \"Card not found\",\n  \"reason\": \"NOT_FOUND\",\n  \"status\": 404\n}"
+				},
+				{
+					"id": "8111c1f4-5707-4591-89b2-db85afd5bb85",
+					"name": "Service unavailable. Typically the server not able to serve the request temporarily.\n",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&srcDpaId=5e0d4b84-189d-4c86-822d-590602f62062_dpa1&srcCorrelationId=ff97ef9b-4b1e-40c2-b522-42197061dc5a&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&reason=ACCOUNT_CLOSED&requestor=CARDHOLDER",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "srcDpaId",
+									"value": "5e0d4b84-189d-4c86-822d-590602f62062_dpa1"
+								},
+								{
+									"key": "srcCorrelationId",
+									"value": "ff97ef9b-4b1e-40c2-b522-42197061dc5a"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "reason",
+									"value": "ACCOUNT_CLOSED"
+								},
+								{
+									"key": "requestor",
+									"value": "CARDHOLDER"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "n8TdCz6BQvSIj2C0yYPvZw000000000000US",
+									"description": "(Required) The srcDigitalCardId of the card enrolled in Mastercard Checkout Solutions (MCS)."
+								}
+							]
+						}
+					},
+					"status": "Service Unavailable",
+					"code": 503,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": null,\n  \"message\": \"Service unavailable. Typically the server not able to serve the request temporarily. Retry after some time\",\n  \"reason\": \"UNAVAILABLE\",\n  \"status\": 503\n}"
+				}
+			]
+		},
+		{
+			"name": "Retrieve transactions by card ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is between 200 and 299\", function () {",
+							"    pm.expect(pm.response.code).to.be.within(200, 300);",
+							"});"
+						],
+						"type": "text/javascript",
+						"id": "460164e7-767a-4852-abe0-b4f199396e6b"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"eval(pm.environment.get(\"encryptionScript\"));",
+							"// \"jwe\" for JWE encryption and \"mce\" for Mastercard encryption",
+							"encryptRequest(pm.environment.get(\"encryptionType\"), pm);"
+						],
+						"type": "text/javascript",
+						"id": "b0d22ea2-43f0-43d7-ae71-cab55004585a"
+					}
+				}
+			],
+			"id": "36ef81d6-07fc-433a-9f7a-ebf6b5af0bb4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/cards/:cardId/transactions?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&transactionsFromTimestamp=0892-03-13T21:32:32z824-17:",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards",
+						":cardId",
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "srcClientId",
+							"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6",
+							"description": "(Required) A unique identifier assigned by Mastercard during onboarding which signifies the responsible party Integrating to Mastercard Checkout Solutions (MCS)."
+						},
+						{
+							"key": "serviceId",
+							"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01",
+							"description": "(Required) Identifies a relevant / requested service (program)"
+						},
+						{
+							"key": "srciTransactionId",
+							"value": "ea in adipisicing consectetur",
+							"description": "Transaction reference generated by the checkout initiator."
+						},
+						{
+							"key": "transactionsFromTimestamp",
+							"value": "0892-03-13T21:32:32z824-17:",
+							"description": "Optional Parameter to provide Transaction history records originating after Date-Time represented by this parameter. This parameter MUST not past 30 days from current date-time and also not after current date-time. Supports taking value in UTC epoch milliseconds format."
+						}
+					],
+					"variable": [
+						{
+							"key": "cardId",
+							"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+							"description": "(Required) Unique identifier of the card. The card identifier may be an SRC Digital Card Identifier or an SRC Payment Card Identifier"
+						}
+					]
+				},
+				"description": "Get transactions by Card Id API will retrieve the recent transactions for the specified card identifier. Integrators may retrieve recent transactions details for a specified card identifier via the Get Transaction Details request. If the Issuer of the card does not support Transaction Detail Service, the Get Transaction Details request will return an error."
+			},
+			"response": [
+				{
+					"id": "ee29613a-70bc-4cf0-9460-1cb95219d9bf",
+					"name": "OK\n",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId/transactions?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&transactionsFromTimestamp=0892-03-13T21:32:32z824-17:",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId",
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "transactionsFromTimestamp",
+									"value": "0892-03-13T21:32:32z824-17:"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+									"description": "(Required) Unique identifier of the card. The card identifier may be an SRC Digital Card Identifier or an SRC Payment Card Identifier"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"transactions\": [\n    {\n      \"recordId\": \"laborum culpa labore consectetur\",\n      \"transactionType\": \"REFUND\",\n      \"currencyCode\": \"dolore laboris\",\n      \"authorizationStatus\": \"sit culpa\",\n      \"transactionTimestamp\": \"proid\",\n      \"srcDigitalCardId\": \"incididunt ut nostrud aliquip\",\n      \"serviceId\": \"SECURE_COF_MERCHANT#START_COF-UPN2#01\",\n      \"srcConsumerId\": \"EC1d65bD-6bC4-E052-DEE5-BA84aB7a24FC\",\n      \"tokenUniqueReference\": \"Duis mollit qui\",\n      \"transactionIdentifier\": \"est pariatur\",\n      \"amount\": 53265470.93104589,\n      \"merchantName\": \"non\",\n      \"merchantType\": \"la\",\n      \"merchantPostalCode\": \"\",\n      \"installments\": 71232501.61663944,\n      \"transactionCountryCode\": \"min\",\n      \"comboCardAccountType\": \"ei\",\n      \"issuerResponseInformation\": \"ani\"\n    },\n    {\n      \"recordId\": \"commodo ven\",\n      \"transactionType\": \"PAYMENT\",\n      \"currencyCode\": \"Duis irure in et\",\n      \"authorizationStatus\": \"sunt pariatur\",\n      \"transactionTimestamp\": \"d\",\n      \"srcDigitalCardId\": \"sed cupidatat\",\n      \"serviceId\": \"SECURE_COF_MERCHANT#START_COF-UPN2#01\",\n      \"srcConsumerId\": \"C5f3CF9d-7a6d-2003-1dEa-544c9Dc2DeDe\",\n      \"tokenUniqueReference\": \"tempor Duis pariat\",\n      \"transactionIdentifier\": \"tempor cupidatat ut\",\n      \"amount\": 4863964.283427566,\n      \"merchantName\": \"reprehenderit t\",\n      \"merchantType\": \"s\",\n      \"merchantPostalCode\": \"magn\",\n      \"installments\": 62128414.470312566,\n      \"transactionCountryCode\": \"com\",\n      \"comboCardAccountType\": \"esse\",\n      \"issuerResponseInformation\": \"eiusmod id ex \"\n    }\n  ]\n}"
+				},
+				{
+					"id": "3feca146-e57a-4dd5-9f8a-356f623a2b55",
+					"name": "Bad Request. Invalid tokenRequested field.\n",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId/transactions?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&transactionsFromTimestamp=0892-03-13T21:32:32z824-17:",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId",
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "transactionsFromTimestamp",
+									"value": "0892-03-13T21:32:32z824-17:"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+									"description": "(Required) Unique identifier of the card. The card identifier may be an SRC Digital Card Identifier or an SRC Payment Card Identifier"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": [\n    {\n      \"message\": \"Failed to convert value of type 'java.lang.String' to required type 'java.lang.Boolean'; nested exception is java.lang.IllegalArgumentException: Invalid boolean value [falsetrue]\",\n      \"reason\": \"INVALID_VALUE\",\n      \"source\": \"tokenRequested\",\n      \"sourceType\": \"QUERY\"\n    }\n  ],\n  \"message\": \"Http request argument type is mismatched at this service\",\n  \"reason\": \"INVALID_ARGUMENT\",\n  \"status\": 400\n}"
+				},
+				{
+					"id": "10cb98cd-f8ac-4146-b3ce-95163cf358f8",
+					"name": "Forbidden.\n",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId/transactions?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&transactionsFromTimestamp=0892-03-13T21:32:32z824-17:",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId",
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "transactionsFromTimestamp",
+									"value": "0892-03-13T21:32:32z824-17:"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+									"description": "(Required) Unique identifier of the card. The card identifier may be an SRC Digital Card Identifier or an SRC Payment Card Identifier"
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": null,\n  \"message\": \"Access is denied to the requested resource. Client does not have sufficient permission or has been locked.\",\n  \"reason\": \"PERMISSION_DENIED\",\n  \"status\": 403\n}"
+				},
+				{
+					"id": "5c2d46ec-bbc7-4611-9030-aa3989c3743a",
+					"name": "Card not found by cards service.\n",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId/transactions?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&transactionsFromTimestamp=0892-03-13T21:32:32z824-17:",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId",
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "transactionsFromTimestamp",
+									"value": "0892-03-13T21:32:32z824-17:"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+									"description": "(Required) Unique identifier of the card. The card identifier may be an SRC Digital Card Identifier or an SRC Payment Card Identifier"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": [\n    {\n      \"message\": null,\n      \"reason\": null,\n      \"source\": \"Card\",\n      \"sourceType\": \"BODY\"\n    }\n  ],\n  \"message\": \"Unknown Error\",\n  \"reason\": \"NOT_FOUND\",\n  \"status\": 404\n}"
+				},
+				{
+					"id": "71ab23e3-c748-4fdc-925a-c4d7438a6367",
+					"name": "Internal server error.",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId/transactions?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&transactionsFromTimestamp=0892-03-13T21:32:32z824-17:",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId",
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "transactionsFromTimestamp",
+									"value": "0892-03-13T21:32:32z824-17:"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+									"description": "(Required) Unique identifier of the card. The card identifier may be an SRC Digital Card Identifier or an SRC Payment Card Identifier"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": null,\n  \"message\": \"Service unavailable. Typically the server not able to serve the request temporarily. Retry after some time\",\n  \"reason\": \"INTERNAL\",\n  \"status\": 500\n}"
+				},
+				{
+					"id": "a27b0420-cccc-4db8-95f2-0831189bdb81",
+					"name": "Service unavailable. Typically the server not able to serve the request temporarily.\n",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cards/:cardId/transactions?srcClientId=6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6&serviceId=SECURE_COF_COMMERCE_PLATFORM%23E2E%2301&srciTransactionId=ea in adipisicing consectetur&transactionsFromTimestamp=0892-03-13T21:32:32z824-17:",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cards",
+								":cardId",
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "srcClientId",
+									"value": "6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6"
+								},
+								{
+									"key": "serviceId",
+									"value": "SECURE_COF_COMMERCE_PLATFORM#E2E#01"
+								},
+								{
+									"key": "srciTransactionId",
+									"value": "ea in adipisicing consectetur"
+								},
+								{
+									"key": "transactionsFromTimestamp",
+									"value": "0892-03-13T21:32:32z824-17:"
+								}
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "9ajNArkAR66zqYyHCn0rCA000000000000US",
+									"description": "(Required) Unique identifier of the card. The card identifier may be an SRC Digital Card Identifier or an SRC Payment Card Identifier"
+								}
+							]
+						}
+					},
+					"status": "Service Unavailable",
+					"code": 503,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"errordetail\": null,\n  \"message\": \"Service unavailable. Typically the server not able to serve the request temporarily. Retry after some time\",\n  \"reason\": \"UNAVAILABLE\",\n  \"status\": 503\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth1",
+		"oauth1": [
+			{
+				"key": "privateKey",
+				"value": "{{privateKey}}",
+				"type": "string"
+			},
+			{
+				"key": "consumerKey",
+				"value": "{{consumerKey}}",
+				"type": "string"
+			},
+			{
+				"key": "includeBodyHash",
+				"value": true,
+				"type": "boolean"
+			},
+			{
+				"key": "addParamsToHeader",
+				"value": true,
+				"type": "boolean"
+			},
+			{
+				"key": "signatureMethod",
+				"value": "RSA-SHA256",
+				"type": "string"
+			},
+			{
+				"key": "disableHeaderEncoding",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "addEmptyParamsToSign",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "version",
+				"value": "1.0",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const { v4: uuidv4 } = require('uuid');",
+					"const nonce = uuidv4();",
+					"var timestamp = (new Date().getTime() / 1000).toFixed(0);",
+					"pm.environment.set(\"nonce\", nonce);",
+					"pm.environment.set(\"timestamp\", timestamp);",
+					"",
+					"// Fetch the Mastercard encryption library and store it in a variable. It can be used in API pre-request scripts.",
+					"if(!pm.environment.get(\"encryptionScript\")){",
+					"    pm.sendRequest(\"https://github.com/Mastercard/postman-encryption-lib/releases/download/v1.0.5/mastercard-postman-encryption-lib.min.js\", function (err, response) {",
+					"        if (err) {        ",
+					"            console.log(\"Error in downloading script: \"+err);",
+					"            return;",
+					"        }",
+					"        // Load the script",
+					"        pm.environment.set(\"encryptionScript\", response.text());",
+					"        console.log(\"encryption script downloaded\")",
+					"",
+					"    })",
+					"}",
+					""
+				],
+				"id": "f3679b9f-0933-4aab-955e-30b78e12e84f"
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "4cc64712-3129-4acb-bcd5-6e47242315b4",
+			"key": "baseUrl",
+			"value": ""
+		},
+		{
+			"id": "0e2f48dc-e2c2-4a4a-9c29-829314f87ba4",
+			"key": "mce",
+			"value": ""
+		},
+		{
+			"id": "ede359e4-0e20-4633-87fa-cbf5679d32e0",
+			"key": "privateKey",
+			"value": ""
+		},
+		{
+			"id": "ddce389d-6e91-4be1-9ccf-5aab94c71c57",
+			"key": "consumerKey",
+			"value": ""
+		},
+		{
+			"id": "edb24308-c5ef-4a03-9e38-06cd1e33c44a",
+			"key": "encryptionCert",
+			"value": ""
+		},
+		{
+			"id": "d3abffe4-9b45-47cf-aad7-f9ef26c963f2",
+			"key": "encryptionKey",
+			"value": ""
+		}
+	]
+}
