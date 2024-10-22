@@ -1,0 +1,527 @@
+{
+	"info": {
+		"_postman_id": "8b496d03-1ef8-421d-9e8d-7d735bd1b197",
+		"name": "Mastercard Secure Card On File Checkout API",
+		"description": "Checkout end point used by Secure Card on File Integrators to receive payload data from the Mastercard Checkout Solutions and send the results of transaction authorization back to the Mastercard. Endpoints are available to retrieve payload data and send the outcome of a payment or checkout.\n\nContact Support:\n Name: API Support\n Email: apisupport@mastercard.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "26843617-8b496d03-1ef8-421d-9e8d-7d735bd1b197"
+	},
+	"item": [
+		{
+			"name": "Checkout end point for retrieving transaction payload.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is between 200 and 299\", function () {",
+							"    pm.expect(pm.response.code).to.be.within(200, 300);",
+							"});"
+						],
+						"type": "text/javascript",
+						"id": "da339684-fda3-4da5-acf8-93050bd93e6a"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"eval(pm.environment.get(\"encryptionScript\"));",
+							"// \"jwe\" for JWE encryption and \"mce\" for Mastercard encryption",
+							"encryptRequest(pm.environment.get(\"encryptionType\"), pm);"
+						],
+						"type": "text/javascript",
+						"id": "8e9ebc5d-1f11-4efd-b92e-d283c1d19ee9"
+					}
+				}
+			],
+			"id": "2e900c0c-1390-40a1-ad81-5cf4a9b8c9a0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "The X-Src-Cx-Flow-Id ensures to direct all calls from the same client to the same server and maintains session affinity. When you make your initial API call, Secure Card on File responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in this response can be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+						"key": "X-Src-Cx-Flow-Id",
+						"value": "34f4a04b.7602af12-a18b-4023-a476-8231ddcaefe7.1621276711"
+					},
+					{
+						"description": "The X-Src-Response-Host is used to direct all calls from the same client to the same server to maintain session affinity. When you make your initial API call, Mastercard Checkout Solutions responds with the X-Src-Response-Host in the HTTP header. The X-Src-Response-Host that is returned will contain a site specific URL that must be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+						"key": "X-Src-Response-Host",
+						"value": "https://ksc.services-asn.mastercard.com/"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"srcDigitalCardId\": \"9ajNArkAR66zqYyHCn0rCA000000000000US\",\n  \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n  \"srcDpaId\": \"5e0d4b84-189d-4c86-822d-590602f62062_dpa1\",\n  \"srcClientId\": \"6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6\",\n  \"srcCorrelationId\": \"c529d2b3-32a8-4d55-b83e-568b50deb93b\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/transaction/credentials",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"transaction",
+						"credentials"
+					]
+				},
+				"description": "Requests the preparation of transaction credentials for checkout. The transaction credentials payload data is encrypted according to JSON Web Encryption (JWE) specification RFC 7516. Algorithm used to encrypt the payload is according to RFC 7518 section 4.1. Obtain the encrypted transaction credentials for an enrolled card from Secure Card on File so that it can be submitted for authorization processing and the consumer can complete the purchase."
+			},
+			"response": [
+				{
+					"id": "2c77985b-527f-4820-8ed2-35e30968ed92",
+					"name": "OK\n",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "The X-Src-Cx-Flow-Id ensures to direct all calls from the same client to the same server and maintains session affinity. When you make your initial API call, Secure Card on File responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in this response can be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+								"key": "X-Src-Cx-Flow-Id",
+								"value": "34f4a04b.7602af12-a18b-4023-a476-8231ddcaefe7.1621276711"
+							},
+							{
+								"description": "The X-Src-Response-Host is used to direct all calls from the same client to the same server to maintain session affinity. When you make your initial API call, Mastercard Checkout Solutions responds with the X-Src-Response-Host in the HTTP header. The X-Src-Response-Host that is returned will contain a site specific URL that must be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+								"key": "X-Src-Response-Host",
+								"value": "https://ksc.services-asn.mastercard.com/"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"srcDigitalCardId\": \"9ajNArkAR66zqYyHCn0rCA000000000000US\",\n  \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n  \"srcDpaId\": \"5e0d4b84-189d-4c86-822d-590602f62062_dpa1\",\n  \"srcClientId\": \"6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6\",\n  \"srcCorrelationId\": \"c529d2b3-32a8-4d55-b83e-568b50deb93b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transaction/credentials",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transaction",
+								"credentials"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"disabled": false,
+							"description": "The X-Src-Cx-Flow-Id ensures to direct all calls from the same client to the same server and maintains session affinity. When you make your initial API call, Secure Card on File responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in this response can be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+							"key": "X-Src-Cx-Flow-Id",
+							"value": "F4EB182C-9A93-b398-6FbA-F8f0723dbDb9"
+						},
+						{
+							"disabled": false,
+							"description": "The X-Src-Response-Host is used to direct all calls from the same client to the same server to maintain session affinity. When you make your initial API call, Mastercard Checkout Solutions responds with the X-Src-Response-Host in the HTTP header. The X-Src-Response-Host that is returned will contain a site specific URL that must be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+							"key": "X-Src-Response-Host",
+							"value": "https://ksc.services-asn.mastercard.com/"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"checkoutResponseJWS\": {\n    \"jose_header\": {\n      \"iss\": \"https://mastercard.com\",\n      \"iat\": 1683125097,\n      \"alg\": \"RS256\",\n      \"jti\": \"c89c811a-a104-4bc4-b05a-d66c541fa81d\",\n      \"kid\": \"20230207164613-sandbox-payload-verification-src-mastercard-int\"\n    },\n    \"jws_payload\": {\n      \"srcCorrelationId\": \"4f339be7.1326bcea-5a07-4adc-9022-9b65434a4660\",\n      \"encryptedPayload\": {\n        \"token\": {\n          \"paymentToken\": 5186151969995949,\n          \"tokenExpirationMonth\": 6,\n          \"tokenExpirationYear\": 2026\n        },\n        \"dynamicData\": {\n          \"dynamicDataValue\": \"AFrSKRTnTT5iAAIbc07XAAADFA==\",\n          \"dynamicDataType\": \"CARD_APPLICATION_CRYPTOGRAM_SHORT_FORM\"\n        }\n      },\n      \"maskedCard\": {\n        \"srcDigitalCardId\": \"61XJzB_BQ9qa29nGa7JZrQ000000000000US\",\n        \"panBin\": 222269,\n        \"panLastFour\": 4574,\n        \"digitalCardData\": {\n          \"status\": \"ACTIVE\",\n          \"presentationName\": \"Test Issuer\",\n          \"descriptorName\": \"mastercard\",\n          \"artUri\": \"https://sbx.assets.mastercard.com/card-art/combined-image-asset/HIGH-MASK-3x.png\",\n          \"isCoBranded\": false\n        },\n        \"serviceId\": \"SECURE_COF_MERCHANT#DOCUMENTATION-UPN2#01\",\n        \"dateOfCardCreated\": \"2023-05-02T19:41:37.487Z\"\n      }\n    },\n    \"jws_signature\": \"eyJraWiOiIxNDkwNjQtc3RnLXNyYy1mcGFuLWVuY3J5â€¦.\"\n  }\n}"
+				},
+				{
+					"id": "a9b91889-9937-4603-8fe3-f6a0f2bf8377",
+					"name": "Bad Request. Reason code of `INVALID_ARGUMENT` Identifies a malformed or invalid request. Use cases:\n\n  * Mandatory parameters in request are missing. Example, `srcClientId` or `srcDigitalCardId` values are not provided.\n  * Request parameters value has i",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "The X-Src-Cx-Flow-Id ensures to direct all calls from the same client to the same server and maintains session affinity. When you make your initial API call, Secure Card on File responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in this response can be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+								"key": "X-Src-Cx-Flow-Id",
+								"value": "34f4a04b.7602af12-a18b-4023-a476-8231ddcaefe7.1621276711"
+							},
+							{
+								"description": "The X-Src-Response-Host is used to direct all calls from the same client to the same server to maintain session affinity. When you make your initial API call, Mastercard Checkout Solutions responds with the X-Src-Response-Host in the HTTP header. The X-Src-Response-Host that is returned will contain a site specific URL that must be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+								"key": "X-Src-Response-Host",
+								"value": "https://ksc.services-asn.mastercard.com/"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"srcDigitalCardId\": \"9ajNArkAR66zqYyHCn0rCA000000000000US\",\n  \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n  \"srcDpaId\": \"5e0d4b84-189d-4c86-822d-590602f62062_dpa1\",\n  \"srcClientId\": \"6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6\",\n  \"srcCorrelationId\": \"c529d2b3-32a8-4d55-b83e-568b50deb93b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transaction/credentials",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transaction",
+								"credentials"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"Cannot process the request because it is malformed or has incorrect/missing fields or values.\",\n  \"reason\": \"INVALID_ARGUMENT\",\n  \"status\": 400\n}"
+				},
+				{
+					"id": "6608b695-4239-419d-b75f-fc0a95eb53d2",
+					"name": "Unauthorized, see error object for details, e.g. authorization token validation failure",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "The X-Src-Cx-Flow-Id ensures to direct all calls from the same client to the same server and maintains session affinity. When you make your initial API call, Secure Card on File responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in this response can be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+								"key": "X-Src-Cx-Flow-Id",
+								"value": "34f4a04b.7602af12-a18b-4023-a476-8231ddcaefe7.1621276711"
+							},
+							{
+								"description": "The X-Src-Response-Host is used to direct all calls from the same client to the same server to maintain session affinity. When you make your initial API call, Mastercard Checkout Solutions responds with the X-Src-Response-Host in the HTTP header. The X-Src-Response-Host that is returned will contain a site specific URL that must be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+								"key": "X-Src-Response-Host",
+								"value": "https://ksc.services-asn.mastercard.com/"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"srcDigitalCardId\": \"9ajNArkAR66zqYyHCn0rCA000000000000US\",\n  \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n  \"srcDpaId\": \"5e0d4b84-189d-4c86-822d-590602f62062_dpa1\",\n  \"srcClientId\": \"6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6\",\n  \"srcCorrelationId\": \"c529d2b3-32a8-4d55-b83e-568b50deb93b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transaction/credentials",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transaction",
+								"credentials"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"value\": {\n    \"message\": \"Unauthorized - Access Not Granted\",\n    \"reason\": \"UNAUTHENTICATED\",\n    \"status\": 401\n  }\n}"
+				},
+				{
+					"id": "1ccfad92-4189-423c-98f3-72b95887a35f",
+					"name": "Forbidden. API will return this response if identifier validation fails.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "The X-Src-Cx-Flow-Id ensures to direct all calls from the same client to the same server and maintains session affinity. When you make your initial API call, Secure Card on File responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in this response can be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+								"key": "X-Src-Cx-Flow-Id",
+								"value": "34f4a04b.7602af12-a18b-4023-a476-8231ddcaefe7.1621276711"
+							},
+							{
+								"description": "The X-Src-Response-Host is used to direct all calls from the same client to the same server to maintain session affinity. When you make your initial API call, Mastercard Checkout Solutions responds with the X-Src-Response-Host in the HTTP header. The X-Src-Response-Host that is returned will contain a site specific URL that must be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+								"key": "X-Src-Response-Host",
+								"value": "https://ksc.services-asn.mastercard.com/"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"srcDigitalCardId\": \"9ajNArkAR66zqYyHCn0rCA000000000000US\",\n  \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n  \"srcDpaId\": \"5e0d4b84-189d-4c86-822d-590602f62062_dpa1\",\n  \"srcClientId\": \"6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6\",\n  \"srcCorrelationId\": \"c529d2b3-32a8-4d55-b83e-568b50deb93b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transaction/credentials",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transaction",
+								"credentials"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"Client does not have sufficient permission. This can happen because the client doesn't have permission, or the API has not been enabled for the client project.\",\n  \"reason\": \"PERMISSION_DENIED\",\n  \"status\": 403\n}"
+				},
+				{
+					"id": "a9b183b8-8dd1-4b9b-9afd-c3ce54d81b99",
+					"name": "Internal Server Error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "The X-Src-Cx-Flow-Id ensures to direct all calls from the same client to the same server and maintains session affinity. When you make your initial API call, Secure Card on File responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in this response can be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+								"key": "X-Src-Cx-Flow-Id",
+								"value": "34f4a04b.7602af12-a18b-4023-a476-8231ddcaefe7.1621276711"
+							},
+							{
+								"description": "The X-Src-Response-Host is used to direct all calls from the same client to the same server to maintain session affinity. When you make your initial API call, Mastercard Checkout Solutions responds with the X-Src-Response-Host in the HTTP header. The X-Src-Response-Host that is returned will contain a site specific URL that must be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+								"key": "X-Src-Response-Host",
+								"value": "https://ksc.services-asn.mastercard.com/"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"srcDigitalCardId\": \"9ajNArkAR66zqYyHCn0rCA000000000000US\",\n  \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n  \"srcDpaId\": \"5e0d4b84-189d-4c86-822d-590602f62062_dpa1\",\n  \"srcClientId\": \"6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6\",\n  \"srcCorrelationId\": \"c529d2b3-32a8-4d55-b83e-568b50deb93b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transaction/credentials",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transaction",
+								"credentials"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"Internal server error. Typically a server bug. The client should report this error to the server team.\",\n  \"reason\": \"INTERNAL\",\n  \"status\": 500\n}"
+				},
+				{
+					"id": "b768a1b5-2682-4203-90be-5d8b916c9996",
+					"name": "Service Unavailable",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "The X-Src-Cx-Flow-Id ensures to direct all calls from the same client to the same server and maintains session affinity. When you make your initial API call, Secure Card on File responds with the X-Src-Cx-Flow-Id in the header. The X-Src-Cx-Flow-Id returned in this response can be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+								"key": "X-Src-Cx-Flow-Id",
+								"value": "34f4a04b.7602af12-a18b-4023-a476-8231ddcaefe7.1621276711"
+							},
+							{
+								"description": "The X-Src-Response-Host is used to direct all calls from the same client to the same server to maintain session affinity. When you make your initial API call, Mastercard Checkout Solutions responds with the X-Src-Response-Host in the HTTP header. The X-Src-Response-Host that is returned will contain a site specific URL that must be used in the subsequent calls to ensure these calls are directed to the same server that returned the initial response.",
+								"key": "X-Src-Response-Host",
+								"value": "https://ksc.services-asn.mastercard.com/"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"srcDigitalCardId\": \"9ajNArkAR66zqYyHCn0rCA000000000000US\",\n  \"serviceId\": \"SECURE_COF_COMMERCE_PLATFORM#E2E#01\",\n  \"srcDpaId\": \"5e0d4b84-189d-4c86-822d-590602f62062_dpa1\",\n  \"srcClientId\": \"6aff5cba-3aac-4fe0-b0cd-a52fc948d0c6\",\n  \"srcCorrelationId\": \"c529d2b3-32a8-4d55-b83e-568b50deb93b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transaction/credentials",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transaction",
+								"credentials"
+							]
+						}
+					},
+					"status": "Service Unavailable",
+					"code": 503,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"message\": \"Service unavailable. Typically the server not able to serve the request temporarily. Retry after sometime.\",\n  \"reason\": \"UNAVAILABLE\",\n  \"status\": 503\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth1",
+		"oauth1": [
+			{
+				"key": "privateKey",
+				"value": "{{privateKey}}",
+				"type": "string"
+			},
+			{
+				"key": "consumerKey",
+				"value": "{{consumerKey}}",
+				"type": "string"
+			},
+			{
+				"key": "includeBodyHash",
+				"value": true,
+				"type": "boolean"
+			},
+			{
+				"key": "addParamsToHeader",
+				"value": true,
+				"type": "boolean"
+			},
+			{
+				"key": "signatureMethod",
+				"value": "RSA-SHA256",
+				"type": "string"
+			},
+			{
+				"key": "disableHeaderEncoding",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "addEmptyParamsToSign",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "version",
+				"value": "1.0",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const { v4: uuidv4 } = require('uuid');",
+					"const nonce = uuidv4();",
+					"var timestamp = (new Date().getTime() / 1000).toFixed(0);",
+					"pm.environment.set(\"nonce\", nonce);",
+					"pm.environment.set(\"timestamp\", timestamp);",
+					"",
+					"// Fetch the Mastercard encryption library and store it in a variable. It can be used in API pre-request scripts.",
+					"if(!pm.environment.get(\"encryptionScript\")){",
+					"    pm.sendRequest(\"https://github.com/Mastercard/postman-encryption-lib/releases/download/v1.0.5/mastercard-postman-encryption-lib.min.js\", function (err, response) {",
+					"        if (err) {        ",
+					"            console.log(\"Error in downloading script: \"+err);",
+					"            return;",
+					"        }",
+					"        // Load the script",
+					"        pm.environment.set(\"encryptionScript\", response.text());",
+					"        console.log(\"encryption script downloaded\")",
+					"",
+					"    })",
+					"}",
+					""
+				],
+				"id": "984319cb-018e-425f-8fa1-9b0f78162808"
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "ef4bb973-c68e-4ea8-9fb0-c3dbd8216d72",
+			"key": "baseUrl",
+			"value": ""
+		},
+		{
+			"id": "f0bdc74b-26a8-4c4c-b032-320d43477f48",
+			"key": "mce",
+			"value": ""
+		},
+		{
+			"id": "7bb3d944-3e9b-4850-8f68-420f7eae3ee0",
+			"key": "privateKey",
+			"value": ""
+		},
+		{
+			"id": "adf74cff-92a6-4a5b-ac98-d3a2f27d2c3c",
+			"key": "consumerKey",
+			"value": ""
+		},
+		{
+			"id": "22f08717-66b5-412d-92d5-6000ba95a644",
+			"key": "encryptionCert",
+			"value": ""
+		},
+		{
+			"id": "c349bba1-62a9-4e59-940c-6df10e238b35",
+			"key": "encryptionKey",
+			"value": ""
+		}
+	]
+}
